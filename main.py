@@ -1,19 +1,8 @@
 import sys
 import random
+import datetime
+import input_data_class
 from random import randint
-
-
-class InputData:
-    def __init__(self, date, amount=None, gender=None):
-        self.date = date
-        if amount is None:
-            self.amount = '1'
-        else:
-            self.amount = amount
-        if gender is None:
-            self.gender = 'U'
-        else:
-            self.gender = gender
 
 
 itemList = []
@@ -21,7 +10,20 @@ itemList = []
 for i in range(1, len(sys.argv)):
     itemList.append(sys.argv[i])
 
-inputData = InputData(*itemList)
+
+inputData = input_data_class.InputData(*itemList)
+
+
+def is_date(date):
+    date_format = '%d/%m/%Y'
+
+    try:
+        datetime.datetime.strptime(date, date_format)
+        return True
+
+    except ValueError:
+        print("Incorrect data input, should be a valid DD/MM/YYYY formatted date")
+        return False
 
 
 def check_number_generator(split_date, daily_serial):
@@ -29,12 +31,12 @@ def check_number_generator(split_date, daily_serial):
     modulo_divisor_int = 97
 
     if split_date[2][0] == "2":
-        result_after_mod = int("2" + modulo_dividend_string) % modulo_divisor_int
-        final_result = str(modulo_divisor_int - result_after_mod)
+        modulo_result = int("2" + modulo_dividend_string) % modulo_divisor_int
+        final_result = str(modulo_divisor_int - modulo_result)
         return final_result if len(final_result) > 1 else '0' + final_result
     else:
-        result_after_mod = int(modulo_dividend_string) % modulo_divisor_int
-        final_result = str(modulo_divisor_int - result_after_mod)
+        modulo_result = int(modulo_dividend_string) % modulo_divisor_int
+        final_result = str(modulo_divisor_int - modulo_result)
         return final_result if len(final_result) > 1 else '0' + final_result
 
 
@@ -59,7 +61,19 @@ def date_format_generator(split_date):
     return split_date[2][2:4] + '.' + split_date[1] + '.' + split_date[0]
 
 
+def print_error_message():
+    print('Error while trying to generate a insz number, please make sure the query format is correct')
+    print('An example of a correct query would be python main.py 10/04/2003')
+    print('You could also add an amount and gender to the query by appending the int and M/W')
+    print('So if I wanted 5 female security numbers of a certain date it would look something like this:')
+    print('python main.py 10/04/2003 5 W')
+    print('If no amount or gender is specified in the query, the default amount is 1 and genderless')
+
+
 def insz_generator(data_obj):
+    if not is_date(data_obj.date):
+        return
+
     try:
         if int(data_obj.amount) < 1 or int(data_obj.amount) > 20:
             amount = 1
@@ -76,13 +90,13 @@ def insz_generator(data_obj):
             print(formatted_date + '-' + daily_serial + '.' + check_number)
 
     except IndexError:
-        print('error while trying to generate a security number, please make sure the date format is correct')
+        print_error_message()
 
     except ValueError:
-        print('error while trying to generate a security number, please make sure the date format is correct')
+        print_error_message()
 
     except TypeError:
-        print('error while trying to generate a security number, please make sure the date format is correct')
+        print_error_message()
 
 
 insz_generator(inputData)
