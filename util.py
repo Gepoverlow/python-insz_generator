@@ -1,9 +1,12 @@
 import datetime
 import random
+from faker import Faker
 from random import randint
 
+fake = Faker()
 
-def is_date(date):
+
+def is_valid_date(date):
     date_format = '%d/%m/%Y'
 
     try:
@@ -12,6 +15,17 @@ def is_date(date):
 
     except ValueError:
         print("Incorrect data input, should be a valid DD/MM/YYYY formatted date")
+        return False
+
+
+def is_valid_amount(amount):
+
+    try:
+        value = int(amount)
+        return True
+
+    except ValueError:
+        print('invalid amount, please try again')
         return False
 
 
@@ -59,3 +73,30 @@ def print_options():
     print('1. Generate a BIS number')
     print('2. Generate a INSZ number')
     print('3. Exit')
+
+
+def handle_insz_date_input():
+    while True:
+
+        print('Please fill in a valid DATE')
+        date_input = input('> ')
+
+        if date_input == '':
+            split_date = str(fake.date()).split('-')
+            return '{}/{}/{}'.format(split_date[2], split_date[1], split_date[0])
+        else:
+            if is_valid_date(date_input):
+                return date_input
+
+
+def handle_insz_amount_input():
+    while True:
+
+        print('How many would you like to generate?')
+        amount_input = input('> ')
+
+        if amount_input == '':
+            return '1'
+        else:
+            if is_valid_amount(amount_input):
+                return '1' if int(amount_input) < 1 or int(amount_input) > 20 else amount_input
