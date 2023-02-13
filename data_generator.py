@@ -1,4 +1,4 @@
-from util import handle_insz_date_input, handle_insz_amount_input
+from util import handle_insz_date_input, handle_insz_amount_input, handle_insz_gender, handle_insz_generation
 
 
 def generate_insz():
@@ -6,8 +6,9 @@ def generate_insz():
         try:
             date = handle_insz_date_input()
             amount = handle_insz_amount_input()
-            print(date)
-            print(amount)
+            gender = handle_insz_gender()
+
+            handle_insz_generation(date, amount, gender)
             break
         except:
             print('Something went wrong')

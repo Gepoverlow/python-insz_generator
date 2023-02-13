@@ -6,6 +6,10 @@ from random import randint
 fake = Faker()
 
 
+def date_format_generator(split_date):
+    return split_date[2][2:4] + '.' + split_date[1] + '.' + split_date[0]
+
+
 def is_valid_date(date):
     date_format = '%d/%m/%Y'
 
@@ -19,13 +23,20 @@ def is_valid_date(date):
 
 
 def is_valid_amount(amount):
-
     try:
         value = int(amount)
         return True
 
     except ValueError:
-        print('invalid amount, please try again')
+        print('Invalid amount, please try again')
+        return False
+
+
+def is_valid_gender(gender):
+    if gender.lower() == 'm' or gender.lower() == 'w' or gender == 'u':
+        return True
+    else:
+        print('Wrong gender: Please select either M, W or U')
         return False
 
 
@@ -100,3 +111,27 @@ def handle_insz_amount_input():
         else:
             if is_valid_amount(amount_input):
                 return '1' if int(amount_input) < 1 or int(amount_input) > 20 else amount_input
+
+
+def handle_insz_gender():
+    while True:
+
+        print('For what gender would you like to generate?')
+        gender_input = input('> ')
+
+        if gender_input == '':
+            return 'U'
+        else:
+            if is_valid_gender(gender_input):
+                return gender_input.upper()
+
+
+def handle_insz_generation(date, amount, gender):
+    for i in range(int(amount)):
+        split_date = date.split("/")
+
+        formatted_date = date_format_generator(split_date)
+        daily_serial = daily_serial_number_generator(gender)
+        check_number = check_number_generator(split_date, daily_serial)
+
+        print(formatted_date + '-' + daily_serial + '.' + check_number)
