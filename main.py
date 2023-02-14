@@ -1,4 +1,4 @@
-from util import print_options
+from general_util import print_options
 import data_generator
 
 if __name__ == "__main__":

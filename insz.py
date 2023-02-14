@@ -1,6 +1,7 @@
 import sys
 import input_data_class
-from util import is_valid_date, daily_serial_number_generator, check_number_generator, print_error_message
+from general_util import is_valid_date
+from insz_util import daily_serial_number_generator, check_number_generator, print_error_message
 
 
 itemList = []
