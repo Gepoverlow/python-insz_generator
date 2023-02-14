@@ -25,11 +25,6 @@ def generate_bis():
             date = handle_date_input()
             amount = handle_amount_input()
 
-            # print(is_gender_known)
-            # print(is_birthday_known)
-            # print(date)
-            # print(amount)
-
             handle_bis_generation(is_gender_known, is_birthday_known, date, amount)
             break
         except:
