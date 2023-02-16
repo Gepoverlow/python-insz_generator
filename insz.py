@@ -1,49 +1,44 @@
-import sys
-import input_data_class
-from general_util import is_valid_date
-from insz_util import daily_serial_number_generator, check_number_generator, print_error_message
+from utility import \
+    daily_serial_number_generator,\
+    check_number_generator,\
+    date_format_generator,\
+    handle_date_input, \
+    handle_amount_input, \
+    handle_insz_gender
+
+from faker import Faker
+
+fake = Faker()
 
 
-itemList = []
+def handle_insz_generation(date, amount, gender):
+    generate_random_dates = False
 
-for i in range(1, len(sys.argv)):
-    itemList.append(sys.argv[i])
+    if date is None:
+        generate_random_dates = True
 
+    for i in range(int(amount)):
+        if generate_random_dates is True:
+            split_random_date = str(fake.date()).split('-')
+            date = '{}/{}/{}'.format(split_random_date[2], split_random_date[1], split_random_date[0])
 
-inputData = input_data_class.InputData(*itemList)
+        formatted_date = date_format_generator(date)
+        daily_serial = daily_serial_number_generator(gender)
+        check_number = check_number_generator(date, daily_serial)
 
-
-def date_format_generator(split_date):
-    return split_date[2][2:4] + '.' + split_date[1] + '.' + split_date[0]
-
-
-def insz_generator(data_obj):
-    if not is_valid_date(data_obj.date):
-        return
-
-    try:
-        if int(data_obj.amount) < 1 or int(data_obj.amount) > 20:
-            amount = 1
-        else:
-            amount = int(data_obj.amount)
-
-        for i in range(amount):
-            split_date = data_obj.date.split("/")
-
-            formatted_date = date_format_generator(split_date)
-            daily_serial = daily_serial_number_generator(data_obj.gender)
-            check_number = check_number_generator(split_date, daily_serial)
-
-            print(formatted_date + '-' + daily_serial + '.' + check_number)
-
-    except IndexError:
-        print_error_message()
-
-    except ValueError:
-        print_error_message()
-
-    except TypeError:
-        print_error_message()
+        print('INSZ -> ' + formatted_date + '-' + daily_serial + '.' + check_number)
 
 
-insz_generator(inputData)
+def generate_insz():
+    while True:
+        try:
+            date = handle_date_input()
+            amount = handle_amount_input()
+            gender = handle_insz_gender()
+
+            handle_insz_generation(date, amount, gender)
+            break
+        except:
+            print('Something went wrong')
+            break
+

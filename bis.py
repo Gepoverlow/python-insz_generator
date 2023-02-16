@@ -1,6 +1,11 @@
 import random
 
-from general_util import daily_serial_number_generator, check_number_generator, date_format_generator
+from utility import \
+    daily_serial_number_generator, \
+    check_number_generator, date_format_generator,\
+    handle_date_input,\
+    handle_amount_input
+
 from faker import Faker
 
 fake = Faker()
@@ -71,6 +76,21 @@ def handle_bis_generation(is_gender_known, is_birthday_known, date, amount):
         check_number = check_number_generator(correct_date, daily_serial)
 
         print('BIS -> ' + formatted_date + '-' + daily_serial + '.' + check_number)
+
+
+def generate_bis():
+    while True:
+        try:
+            is_gender_known = handle_bis_is_gender_known_input()
+            is_birthday_known = handle_bis_is_birthday_known_input()
+            date = handle_date_input()
+            amount = handle_amount_input()
+
+            handle_bis_generation(is_gender_known, is_birthday_known, date, amount)
+            break
+        except:
+            print('Something went wrong')
+            break
 
 
 

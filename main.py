@@ -1,5 +1,6 @@
-from general_util import print_options
-import data_generator
+from utility import print_options
+from insz import generate_insz
+from bis import generate_bis
 
 if __name__ == "__main__":
 
@@ -10,10 +11,10 @@ if __name__ == "__main__":
         selected_option = input('Your selected option:')
 
         if selected_option == '1':
-            data_generator.generate_bis()
+            generate_bis()
             break
         elif selected_option == '2':
-            data_generator.generate_insz()
+            generate_insz()
             break
         elif selected_option == '3':
             print('Thank you for using this console app')
