@@ -1,5 +1,5 @@
 from utility import print_options
-from insz import generate_insz
+from insz import generate_insz, decode_insz
 from bis import generate_bis
 
 if __name__ == "__main__":
@@ -17,6 +17,9 @@ if __name__ == "__main__":
             generate_insz()
             break
         elif selected_option == '3':
+            decode_insz()
+            break
+        elif selected_option == '4':
             print('Thank you for using this console app')
             break
         else:

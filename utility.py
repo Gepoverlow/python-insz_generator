@@ -110,6 +110,79 @@ def daily_serial_number_generator(gender):
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), randint(1, 8))
 
 
+def is_valid_yes_or_no_input(gender_known):
+    if gender_known.lower() == 'y' or gender_known.lower() == 'n':
+        return True
+    else:
+        print('Wrong input: Please enter Y for Yes or N for No')
+        return False
+
+
+def handle_bis_is_gender_known_input():
+    while True:
+
+        print('Is the gender known?')
+        gender_known_input = input('> ')
+
+        if gender_known_input == '':
+            return True
+        else:
+            if is_valid_yes_or_no_input(gender_known_input):
+                return True if gender_known_input == 'y' else False
+
+
+def handle_bis_is_birthday_known_input():
+    while True:
+
+        print('Is the birthday known?')
+        birthday_known_input = input('> ')
+
+        if birthday_known_input == '':
+            return True
+        else:
+            if is_valid_yes_or_no_input(birthday_known_input):
+                return True if birthday_known_input == 'y' else False
+
+
+def date_refactorer_bis(date, is_gender_known, is_birthday_known):
+    split_date = date.split("/")
+
+    if is_gender_known is True and is_birthday_known is True:
+        return '{}/{}/{}'.format(split_date[0], str(int(split_date[1]) + 40), split_date[2])
+    elif is_gender_known is False and is_birthday_known is True:
+        return '{}/{}/{}'.format(split_date[0], str(int(split_date[1]) + 20), split_date[2])
+    elif is_gender_known is True and is_birthday_known is False:
+        return '{}/{}/{}'.format('0' + str(random.randint(0, 3)), '40', split_date[2])
+    else:
+        return '{}/{}/{}'.format('0' + str(random.randint(0, 3)), '20', split_date[2])
+
+
+def is_valid_insz_input(insz_input):
+    modulo_divisor = 97
+
+    if not insz_input.isnumeric() \
+            or not len(insz_input) == 11:
+        return False
+
+    input_check_number = int(insz_input[9:11])
+    pre_2000_result = modulo_divisor - (int(insz_input[0:9]) % modulo_divisor)
+    post_2000_result = modulo_divisor - (int('2' + insz_input[0:9]) % modulo_divisor)
+
+    if pre_2000_result == input_check_number \
+            or post_2000_result == input_check_number:
+        return True
+
+
+def handle_insz_input():
+    while True:
+
+        print('Please enter a valid INSZ number')
+        insz_input = input('> ')
+
+        if is_valid_insz_input(insz_input):
+            return insz_input
+
+
 def print_error_message():
     print('Error while trying to generate a insz number, please make sure the query format is correct')
     print('An example of a correct query would be python insz.py 10/04/2003')
@@ -122,4 +195,5 @@ def print_error_message():
 def print_options():
     print('1. Generate a BIS number')
     print('2. Generate a INSZ number')
-    print('3. Exit')
+    print('3. Decode a INSZ number')
+    print('4. Exit')

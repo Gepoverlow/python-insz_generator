@@ -4,7 +4,8 @@ from utility import \
     date_format_generator,\
     handle_date_input, \
     handle_amount_input, \
-    handle_insz_gender
+    handle_insz_gender, \
+    handle_insz_input
 
 from faker import Faker
 
@@ -41,4 +42,17 @@ def generate_insz():
         except:
             print('Something went wrong')
             break
+
+
+def decode_insz():
+    while True:
+        try:
+            insz = handle_insz_input()
+            print(insz)
+            break
+        except:
+            print('Something went wrong')
+            break
+
+
 
