@@ -5,7 +5,8 @@ from utility import \
     handle_date_input, \
     handle_amount_input, \
     handle_insz_gender, \
-    handle_insz_input
+    handle_insz_input, \
+    handle_date_year
 
 from faker import Faker
 
@@ -48,7 +49,8 @@ def decode_insz():
     while True:
         try:
             insz = handle_insz_input()
-            print(insz)
+            is_post_2000_date = handle_date_year(insz)
+            print(is_post_2000_date)
             break
         except:
             print('Something went wrong')

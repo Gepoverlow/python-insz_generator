@@ -42,7 +42,7 @@ def is_valid_date(date):
         return True
 
     except ValueError:
-        print("Incorrect data input, should be a valid DD/MM/YYYY formatted date")
+        print("Incorrect data input, date should be valid")
         return False
 
 
@@ -164,23 +164,38 @@ def is_valid_insz_input(insz_input):
             or not len(insz_input) == 11:
         return False
 
+    possible_pre_date = '{}/{}/19{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
+    possible_post_date = '{}/{}/20{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
+
     input_check_number = int(insz_input[9:11])
     pre_2000_result = modulo_divisor - (int(insz_input[0:9]) % modulo_divisor)
     post_2000_result = modulo_divisor - (int('2' + insz_input[0:9]) % modulo_divisor)
 
-    if pre_2000_result == input_check_number \
-            or post_2000_result == input_check_number:
+    if (pre_2000_result == input_check_number and is_valid_date(possible_pre_date)) \
+            or (post_2000_result == input_check_number and is_valid_date(possible_post_date)):
         return True
 
 
 def handle_insz_input():
     while True:
 
-        print('Please enter a valid INSZ number')
+        print('Please enter a valid INSZ number without symbols/space between numbers')
         insz_input = input('> ')
 
         if is_valid_insz_input(insz_input):
             return insz_input
+
+
+def handle_date_year(insz_nr):
+    modulo_divisor = 97
+    check_number = insz_nr[9:11]
+    pre_2000_result = modulo_divisor - (int(insz_nr[0:9]) % modulo_divisor)
+    post_2000_result = modulo_divisor - (int('2' + insz_nr[0:9]) % modulo_divisor)
+
+    if pre_2000_result == int(check_number):
+        return False
+    elif post_2000_result == int(check_number):
+        return True
 
 
 def print_error_message():
