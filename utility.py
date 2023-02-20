@@ -4,7 +4,7 @@ from random import randint
 
 
 def is_valid_gender(gender):
-    if gender.lower() == 'm' or gender.lower() == 'w' or gender == 'u':
+    if gender.lower() == 'm' or gender.lower() == 'w' or gender.lower() == 'u':
         return True
     else:
         print('Wrong gender: Please select either M, W or U')
@@ -101,9 +101,9 @@ def check_number_generator(date, daily_serial):
 
 
 def daily_serial_number_generator(gender):
-    if gender.upper() == 'W':
+    if gender.upper() == 'M':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), odd_number_generator(1, 9))
-    elif gender.upper() == 'M':
+    elif gender.upper() == 'W':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), even_number_generator(0, 8))
     elif gender.upper() == 'U':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), randint(1, 8))
