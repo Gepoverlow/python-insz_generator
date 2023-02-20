@@ -29,7 +29,7 @@ def handle_bis_generation(is_gender_known, is_birthday_known, date, amount):
         daily_serial = daily_serial_number_generator('U')
         check_number = check_number_generator(correct_date, daily_serial)
 
-        print('BIS -> ' + formatted_date + '-' + daily_serial + '.' + check_number)
+        print('BIS {} -> {}-{}.{}'.format(str(i + 1), formatted_date, daily_serial, check_number))
 
 
 def generate_bis():

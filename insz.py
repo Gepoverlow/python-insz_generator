@@ -4,7 +4,7 @@ from utility import \
     date_format_generator, \
     handle_date_input, \
     handle_amount_input, \
-    handle_insz_gender, \
+    handle_insz_gender_input, \
     handle_insz_input, \
     is_2000_date, \
     detect_insz_gender
@@ -29,7 +29,7 @@ def handle_insz_generation(date, amount, gender):
         daily_serial = daily_serial_number_generator(gender)
         check_number = check_number_generator(date, daily_serial)
 
-        print('INSZ -> ' + formatted_date + '-' + daily_serial + '.' + check_number)
+        print('INSZ {} -> {}-{}.{}'.format(str(i + 1), formatted_date, daily_serial, check_number))
 
 
 def generate_insz():
@@ -37,7 +37,7 @@ def generate_insz():
         try:
             date = handle_date_input()
             amount = handle_amount_input()
-            gender = handle_insz_gender()
+            gender = handle_insz_gender_input()
 
             handle_insz_generation(date, amount, gender)
             break
