@@ -1,12 +1,13 @@
 from utility import \
-    daily_serial_number_generator,\
-    check_number_generator,\
-    date_format_generator,\
+    daily_serial_number_generator, \
+    check_number_generator, \
+    date_format_generator, \
     handle_date_input, \
     handle_amount_input, \
     handle_insz_gender, \
     handle_insz_input, \
-    handle_date_year
+    is_2000_date, \
+    detect_insz_gender
 
 from faker import Faker
 
@@ -45,16 +46,26 @@ def generate_insz():
             break
 
 
+def handle_insz_decodification(insz_nr, is_post_2000_date, gender):
+    birth_day = insz_nr[4:6]
+    birth_month = insz_nr[2:4]
+    birth_year = '20' + insz_nr[0:2] if is_post_2000_date else '19' + insz_nr[0:2]
+
+    print('This persons birth day is {}/{}/{} and the gender is {}'.format(birth_day,
+                                                                           birth_month,
+                                                                           birth_year,
+                                                                           gender))
+
+
 def decode_insz():
     while True:
         try:
             insz = handle_insz_input()
-            is_post_2000_date = handle_date_year(insz)
-            print(is_post_2000_date)
+            is_post_2000_date = is_2000_date(insz)
+            gender = detect_insz_gender(insz)
+
+            handle_insz_decodification(insz, is_post_2000_date, gender)
             break
         except:
             print('Something went wrong')
             break
-
-
-

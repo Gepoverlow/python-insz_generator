@@ -158,11 +158,11 @@ def date_refactorer_bis(date, is_gender_known, is_birthday_known):
 
 
 def is_valid_insz_input(insz_input):
-    modulo_divisor = 97
-
     if not insz_input.isnumeric() \
             or not len(insz_input) == 11:
         return False
+
+    modulo_divisor = 97
 
     possible_pre_date = '{}/{}/19{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
     possible_post_date = '{}/{}/20{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
@@ -186,16 +186,20 @@ def handle_insz_input():
             return insz_input
 
 
-def handle_date_year(insz_nr):
+def is_2000_date(insz_nr):
     modulo_divisor = 97
     check_number = insz_nr[9:11]
-    pre_2000_result = modulo_divisor - (int(insz_nr[0:9]) % modulo_divisor)
     post_2000_result = modulo_divisor - (int('2' + insz_nr[0:9]) % modulo_divisor)
 
-    if pre_2000_result == int(check_number):
-        return False
-    elif post_2000_result == int(check_number):
+    if post_2000_result == int(check_number):
         return True
+    else:
+        return False
+
+
+def detect_insz_gender(insz_nr):
+    daily_serial_number = insz_nr[6:9]
+    return 'Female' if int(daily_serial_number[2]) % 2 == 0 else 'Male'
 
 
 def print_error_message():
