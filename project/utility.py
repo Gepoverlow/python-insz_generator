@@ -50,12 +50,12 @@ def is_2000_date(insz_nr: str) -> bool:
     return True if post_2000_check_nr == int(check_number) else False
 
 
-def odd_number_generator(n_from: int, n_to: int) -> str:
-    return random.choice([i for i in range(n_from, n_to + 1) if i % 2 != 0])
+def odd_number_generator() -> str:
+    return random.choice([i for i in range(1, 9 + 1) if i % 2 != 0])
 
 
-def even_number_generator(n_from: int, n_to: int) -> str:
-    return random.choice([i for i in range(n_from, n_to) if i % 2 == 0])
+def even_number_generator() -> str:
+    return random.choice([i for i in range(0, 8) if i % 2 == 0])
 
 
 def date_format_generator(date: str) -> str:
