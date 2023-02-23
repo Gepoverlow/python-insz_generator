@@ -14,14 +14,14 @@ from faker import Faker
 fake = Faker()
 
 
-def handle_insz_generation(date: str, amount: str, gender: str) -> list[str]:
+def handle_insz_generation(date: str, amount: int, gender: str) -> list[str]:
     generate_random_dates: bool = False
     insz_list: list[str] = list()
 
     if date is None:
         generate_random_dates = True
 
-    for i in range(int(amount)):
+    for i in range(amount):
         if generate_random_dates is True:
             split_random_date: list[str] = str(fake.date()).split('-')
             date: str = '{}/{}/{}'.format(split_random_date[2], split_random_date[1], split_random_date[0])
@@ -39,7 +39,7 @@ def generate_insz() -> None:
     while True:
         try:
             date: str = handle_date_input()
-            amount: str = handle_amount_input()
+            amount: int = handle_amount_input()
             gender: str = handle_insz_gender_input()
 
             insz_results: list[str] = handle_insz_generation(date, amount, gender)

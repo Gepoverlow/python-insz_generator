@@ -4,11 +4,11 @@ from random import randint
 
 
 def is_valid_gender(gender: str) -> bool:
-    return True if gender.lower() in ['m', 'w', 'u'] else print('Wrong Input -> Pick between m, w or u')
+    return True if gender.lower() in ['m', 'w', 'u'] else print('Invalid gender input, please pick between m, w or u')
 
 
 def is_valid_amount(amount: str) -> bool:
-    return True if amount.isdigit() else print('Invalid amount, please input a number')
+    return True if amount.isdigit() else print('Invalid amount input, please select a valid amount')
 
 
 def is_valid_date(date: str) -> bool:
@@ -19,16 +19,17 @@ def is_valid_date(date: str) -> bool:
         return True
 
     except ValueError:
-        print("Incorrect data input, date should be valid")
+        print("Invalid date input, please select a valid date")
 
 
 def is_valid_yes_or_no_input(gender_known: str) -> bool:
-    return True if gender_known.lower() in ['y', 'n'] else print('Wrong Input -> Pick between y or n')
+    return True if gender_known.lower() in ['y', 'n'] else print('Invalid input, please pick between y or n')
 
 
 def is_valid_insz_input(insz_input: str) -> bool:
     if not insz_input.isnumeric() \
             or not len(insz_input) == 11:
+        print('Invalid insz input, please pick a valid insz number')
         return False
 
     possible_pre_date: str = '{}/{}/19{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
@@ -41,6 +42,9 @@ def is_valid_insz_input(insz_input: str) -> bool:
     if (pre_2000_result == input_check_number and is_valid_date(possible_pre_date)) \
             or (post_2000_result == input_check_number and is_valid_date(possible_post_date)):
         return True
+
+    else:
+        print('Invalid insz, please pick a valid insz number')
 
 
 def is_2000_date(insz_nr: str) -> bool:
@@ -60,6 +64,7 @@ def even_number_generator() -> str:
 
 def date_format_generator(date: str) -> str:
     split_date: list[str] = date.split("/")
+
     return split_date[2][2:4] + '.' + split_date[1] + '.' + split_date[0]
 
 
@@ -71,6 +76,7 @@ def check_number_generator(date: str, daily_serial: str) -> str:
 
     if year >= 2000:
         modulo_result: int = int("2" + modulo_dividend_string) % 97
+
     else:
         modulo_result: int = int(modulo_dividend_string) % 97
 
@@ -81,102 +87,143 @@ def check_number_generator(date: str, daily_serial: str) -> str:
 def daily_serial_number_generator(gender: str) -> str:
     if gender.upper() == 'M':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), odd_number_generator())
+
     elif gender.upper() == 'W':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), even_number_generator())
+
     elif gender.upper() == 'U':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), randint(1, 8))
 
 
-def handle_amount_input() -> str:
+def handle_amount_input() -> int:
     while True:
 
-        print('How many would you like to generate?')
-        amount_input: str = input('> ')
+        amount_input = input('How many would you like to generate? > ')
 
         if amount_input == '':
-            return '1'
+            amount_input = 1
+            break
+
+        elif is_valid_amount(amount_input):
+            if int(amount_input) < 1 or int(amount_input) > 20:
+                amount_input = 1
+            break
+
         else:
-            if is_valid_amount(amount_input):
-                return '1' if int(amount_input) < 1 or int(amount_input) > 20 else amount_input
+            continue
+
+    return int(amount_input)
 
 
 def handle_date_input() -> None or str:
     while True:
 
-        print('Please fill in a valid DATE')
-        date_input: str = input('> ')
+        date_input = input('Please fill in a valid DATE > ')
 
         if date_input == '':
-            return None
+            date_input = None
+            break
+
+        elif is_valid_date(date_input):
+            break
+
         else:
-            if is_valid_date(date_input):
-                return date_input
+            continue
+
+    return date_input
 
 
 def handle_insz_gender_input() -> str:
     while True:
 
-        print('For what gender would you like to generate?')
-        gender_input: str = input('> ')
+        gender_input: str = input('For what gender would you like to generate? > ')
 
         if gender_input == '':
-            return 'U'
+            gender_input = 'U'
+            break
+
+        elif is_valid_gender(gender_input):
+            break
+
         else:
-            if is_valid_gender(gender_input):
-                return gender_input.upper()
+            continue
+
+    return gender_input
 
 
-def handle_bis_is_gender_known_input() -> bool:
+def handle_is_gender_known_input() -> bool:
     while True:
 
-        print('Is the gender known?')
-        gender_known_input: str = input('> ')
+        gender_known_input: str = input('Is the gender known? > ')
+        is_gender_known: bool = True
 
         if gender_known_input == '':
-            return True
+            break
+
+        elif is_valid_yes_or_no_input(gender_known_input):
+            if gender_known_input.lower() == 'n':
+                is_gender_known = False
+            break
+
         else:
-            if is_valid_yes_or_no_input(gender_known_input):
-                return True if gender_known_input.lower() == 'y' else False
+            continue
+
+    return is_gender_known
 
 
-def handle_bis_is_birthday_known_input() -> bool:
+def handle_is_dob_known_input() -> bool:
     while True:
 
-        print('Is the birthday known?')
-        birthday_known_input: str = input('> ')
+        dob_known_input: str = input('Is the date of birth known? > ')
+        is_dob_known: bool = True
 
-        if birthday_known_input == '':
-            return True
+        if dob_known_input == '':
+            break
+
+        elif is_valid_yes_or_no_input(dob_known_input):
+            if dob_known_input.lower() == 'n':
+                is_dob_known = False
+            break
+
         else:
-            if is_valid_yes_or_no_input(birthday_known_input):
-                return True if birthday_known_input.lower() == 'y' else False
+            continue
+
+    return is_dob_known
 
 
 def handle_insz_input() -> str:
     while True:
 
-        print('Please enter a valid INSZ number without symbols/space between numbers')
-        insz_input: str = input('> ')
+        insz_input = input('Please enter a valid INSZ number without symbols/space between numbers > ')
 
         if is_valid_insz_input(insz_input):
-            return insz_input
+            break
+
+        else:
+            continue
+
+    return insz_input
 
 
-def date_refactorer_bis(date: str, is_gender_known: str, is_birthday_known: str) -> str:
+def date_refactorer_bis(date: str, is_gender_known: bool, is_birthday_known: bool) -> str:
     split_date: list[str] = date.split("/")
 
     if is_gender_known is True and is_birthday_known is True:
         return '{}/{}/{}'.format(split_date[0], str(int(split_date[1]) + 40), split_date[2])
+
     elif is_gender_known is False and is_birthday_known is True:
         return '{}/{}/{}'.format(split_date[0], str(int(split_date[1]) + 20), split_date[2])
+
     elif is_gender_known is True and is_birthday_known is False:
         return '{}/{}/{}'.format('0' + str(random.randint(0, 3)), '40', split_date[2])
+
     else:
         return '{}/{}/{}'.format('0' + str(random.randint(0, 3)), '20', split_date[2])
 
 
 def detect_insz_gender(insz_nr: str) -> str:
     daily_serial_number: str = insz_nr[6:9]
+
     return 'Female' if int(daily_serial_number[2]) % 2 == 0 else 'Male'
 
 
