@@ -80,9 +80,9 @@ def check_number_generator(date: str, daily_serial: str) -> str:
 
 def daily_serial_number_generator(gender: str) -> str:
     if gender.upper() == 'M':
-        return '{}{}{}'.format(randint(0, 9), randint(0, 9), odd_number_generator(1, 9))
+        return '{}{}{}'.format(randint(0, 9), randint(0, 9), odd_number_generator())
     elif gender.upper() == 'W':
-        return '{}{}{}'.format(randint(0, 9), randint(0, 9), even_number_generator(0, 8))
+        return '{}{}{}'.format(randint(0, 9), randint(0, 9), even_number_generator())
     elif gender.upper() == 'U':
         return '{}{}{}'.format(randint(0, 9), randint(0, 9), randint(1, 8))
 

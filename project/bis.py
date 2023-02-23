@@ -1,6 +1,7 @@
 from utility import \
     daily_serial_number_generator, \
-    check_number_generator, date_format_generator,\
+    check_number_generator, \
+    date_format_generator,\
     date_refactorer_bis,\
     handle_date_input,\
     handle_amount_input,\
