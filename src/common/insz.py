@@ -1,4 +1,4 @@
-from utility import \
+from src.common.utility import \
     daily_serial_number_generator, \
     check_number_generator, \
     date_format_generator, \

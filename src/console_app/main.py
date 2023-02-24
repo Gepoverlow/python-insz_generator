@@ -1,6 +1,6 @@
-from utility import print_options
-from insz import generate_insz, decode_insz
-from bis import generate_bis
+from src.common.utility import print_options
+from src.common.insz import generate_insz, decode_insz
+from src.common.bis import generate_bis
 
 if __name__ == "__main__":
 

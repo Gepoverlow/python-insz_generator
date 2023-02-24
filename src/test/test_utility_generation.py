@@ -2,8 +2,8 @@ import unittest
 import sys
 
 # TODO improve this
-sys.path.append('..')
-from project import utility as util
+sys.path.append('../..')
+from src.common import utility as util
 
 
 class TestUtilityGeneration(unittest.TestCase):

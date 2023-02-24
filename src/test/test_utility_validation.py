@@ -3,9 +3,9 @@ import sys
 import random
 
 # TODO improve this
-sys.path.append('..')
+sys.path.append('../..')
 
-from project import utility as util
+from src.common import utility as util
 
 
 class TestUtilityValidation(unittest.TestCase):

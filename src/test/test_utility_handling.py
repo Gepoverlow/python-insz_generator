@@ -3,8 +3,8 @@ from unittest.mock import patch
 import sys
 
 # TODO improve this
-sys.path.append('..')
-from project import utility as util
+sys.path.append('../..')
+from src.common import utility as util
 
 
 def get_input(text):
