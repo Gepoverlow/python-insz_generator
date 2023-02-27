@@ -1,5 +1,5 @@
 import unittest
-from src.common import utility as util
+from common import utility as util
 
 
 class TestUtilityGeneration(unittest.TestCase):

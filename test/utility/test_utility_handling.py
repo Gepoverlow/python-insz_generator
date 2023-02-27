@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from src.common import utility as util
+from common import utility as util
 
 
 class TestUtilityHandling(unittest.TestCase):

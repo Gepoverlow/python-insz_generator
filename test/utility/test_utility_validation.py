@@ -2,8 +2,7 @@ import unittest
 import io
 import random
 from unittest.mock import patch
-from src.common import utility as util
-from src.common import insz as i
+from common import utility as util, insz as i
 
 
 class TestUtilityValidation(unittest.TestCase):

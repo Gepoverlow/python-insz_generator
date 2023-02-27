@@ -1,5 +1,5 @@
 import hug
-from src.common.insz import handle_insz_generation
+from common.insz import handle_insz_generation
 
 
 @hug.get()
