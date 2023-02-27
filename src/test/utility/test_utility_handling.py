@@ -3,10 +3,6 @@ from unittest.mock import patch
 from src.common import utility as util
 
 
-def get_input(text):
-    return input(text)
-
-
 class TestUtilityHandling(unittest.TestCase):
 
     @patch('builtins.input', return_value='')

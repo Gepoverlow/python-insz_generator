@@ -101,15 +101,15 @@ def daily_serial_number_generator(gender: str) -> str:
 def handle_amount_input() -> int:
     while True:
 
-        amount_input = input('How many would you like to generate? > ')
+        amount_input: str = input('How many would you like to generate? > ')
 
         if amount_input == '':
-            amount_input = 1
+            amount_input = '1'
             break
 
         elif is_valid_amount(amount_input):
             if int(amount_input) < 1 or int(amount_input) > 20:
-                amount_input = 1
+                amount_input = '1'
             break
 
         else:
@@ -121,7 +121,7 @@ def handle_amount_input() -> int:
 def handle_date_input() -> None or str:
     while True:
 
-        date_input = input('Please fill in a valid DATE > ')
+        date_input: str or None = input('Please fill in a valid DATE > ')
 
         if date_input == '':
             date_input = None
@@ -197,7 +197,7 @@ def handle_is_dob_known_input() -> bool:
 def handle_insz_input() -> str:
     while True:
 
-        insz_input = input('Please enter a valid INSZ number without symbols/space between numbers > ')
+        insz_input: str = input('Please enter a valid INSZ number without symbols/space between numbers > ')
 
         if is_valid_insz_input(insz_input) is True:
             break
@@ -230,16 +230,8 @@ def detect_insz_gender(insz_nr: str) -> str:
     return 'Female' if int(daily_serial_number[2]) % 2 == 0 else 'Male'
 
 
-def print_error_message() -> None:
-    print('Error while trying to generate a insz number, please make sure the query format is correct')
-    print('An example of a correct query would be python insz.py 10/04/2003')
-    print('You could also add an amount and gender to the query by appending the int and M/W')
-    print('So if I wanted 5 female security numbers of a certain date it would look something like this:')
-    print('python insz.py 10/04/2003 5 W')
-    print('If no amount or gender is specified in the query, the default amount is 1 and genderless')
-
-
 def print_options() -> None:
+    print(' --------------------------- ')
     print('1. Generate a BIS number')
     print('2. Generate a INSZ number')
     print('3. Decode a INSZ number')

@@ -12,13 +12,13 @@ if __name__ == "__main__":
 
         if selected_option == '1':
             generate_bis()
-            break
+
         elif selected_option == '2':
             generate_insz()
-            break
+
         elif selected_option == '3':
             decode_insz()
-            break
+
         elif selected_option == '4':
             print('Thank you for using this console app')
             break
