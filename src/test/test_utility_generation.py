@@ -1,8 +1,4 @@
 import unittest
-import sys
-
-# TODO improve this
-sys.path.append('../..')
 from src.common import utility as util
 
 
@@ -21,7 +17,7 @@ class TestUtilityGeneration(unittest.TestCase):
     def test_date_format_generator(self):
         result: str = util.date_format_generator('21/02/1989')
 
-        self.assertEqual(result, '89.02.21')
+        self.assertEqual(result, '890221')
 
     def test_check_number_generator_pre_2000(self):
         pre_2000_date: str = '21/02/1970'

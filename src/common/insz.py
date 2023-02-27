@@ -30,7 +30,7 @@ def handle_insz_generation(date: str, amount: int, gender: str) -> list[str]:
         daily_serial: str = daily_serial_number_generator(gender)
         check_number: str = check_number_generator(date, daily_serial)
 
-        insz_list.append('INSZ {} -> {}-{}.{}'.format(str(i + 1), formatted_date, daily_serial, check_number))
+        insz_list.append('{}{}{}'.format(formatted_date, daily_serial, check_number))
 
     return insz_list
 

@@ -1,11 +1,9 @@
 import unittest
-import sys
+import io
 import random
-
-# TODO improve this
-sys.path.append('../..')
-
+from unittest.mock import patch
 from src.common import utility as util
+from src.common import insz as i
 
 
 class TestUtilityValidation(unittest.TestCase):
@@ -16,11 +14,12 @@ class TestUtilityValidation(unittest.TestCase):
 
         self.assertTrue(result)
 
-    def test_invalid_date_input(self):
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_invalid_date_input(self, mock_stdout):
         date_input: str = '32/13/2012'
-        result: bool = util.is_valid_date(date_input)
+        util.is_valid_date(date_input)
 
-        self.assertIsNot(result, True)
+        self.assertEqual(mock_stdout.getvalue(), 'Invalid date input, please select a valid date\n')
 
     def test_valid_gender(self):
         gender_input: str = random.choice(['m', 'w', 'u'])
@@ -28,11 +27,12 @@ class TestUtilityValidation(unittest.TestCase):
 
         self.assertTrue(result)
 
-    def test_invalid_gender(self):
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_invalid_gender(self, mock_stdout):
         gender_input: str = random.choice('x')
-        result: bool = util.is_valid_gender(gender_input)
+        util.is_valid_gender(gender_input)
 
-        self.assertIsNot(result, True)
+        self.assertEqual(mock_stdout.getvalue(), 'Invalid gender input, please pick between m, w or u\n')
 
     def test_valid_amount(self):
         amount_input: str = '10'
@@ -40,11 +40,12 @@ class TestUtilityValidation(unittest.TestCase):
 
         self.assertTrue(result)
 
-    def test_invalid_amount(self):
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_invalid_amount(self, mock_stdout):
         amount_input: str = 'aze'
-        result: bool = util.is_valid_amount(amount_input)
+        util.is_valid_amount(amount_input)
 
-        self.assertIsNot(result, True)
+        self.assertEqual(mock_stdout.getvalue(), 'Invalid amount input, please select a valid amount\n')
 
     def test_valid_yes_or_no(self):
         yes_or_no_input: str = random.choice(['y', 'n'])
@@ -52,11 +53,12 @@ class TestUtilityValidation(unittest.TestCase):
 
         self.assertTrue(result)
 
-    def test_invalid_yes_or_no(self):
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_invalid_yes_or_no(self, mock_stdout):
         yes_or_no_input: str = 'x'
-        result: bool = util.is_valid_yes_or_no_input(yes_or_no_input)
+        util.is_valid_yes_or_no_input(yes_or_no_input)
 
-        self.assertIsNot(result, True)
+        self.assertEqual(mock_stdout.getvalue(), 'Invalid input, please pick between y or n\n')
 
     def test_valid_insz(self):
         insz_input = '66041040332'
@@ -64,11 +66,26 @@ class TestUtilityValidation(unittest.TestCase):
 
         self.assertTrue(result)
 
-    def test_invalid_insz(self):
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_invalid_insz(self, mock_stdout):
         insz_input = '12121212312'
-        result: bool = util.is_valid_insz_input(insz_input)
+        util.is_valid_insz_input(insz_input)
 
-        self.assertIsNot(result, True)
+        self.assertEqual(mock_stdout.getvalue(), 'Invalid insz input, please pick a valid insz number\n')
+
+    def test_is_2000_date_true(self):
+        post_2000_date: str = '12/07/2050'
+        post_2000_insz: list[str] = i.handle_insz_generation(post_2000_date, 1, 'u')
+
+        result: bool = util.is_2000_date(post_2000_insz[0])
+        self.assertTrue(result)
+
+    def test_is_2000_date_false(self):
+        pre_2000_date: str = '12/07/1950'
+        pre_2000_insz: list[str] = i.handle_insz_generation(pre_2000_date, 1, 'u')
+
+        result: bool = util.is_2000_date(pre_2000_insz[0])
+        self.assertFalse(result)
 
 
 if __name__ == "__main__":

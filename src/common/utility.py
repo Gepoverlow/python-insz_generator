@@ -19,7 +19,7 @@ def is_valid_date(date: str) -> bool:
         return True
 
     except ValueError:
-        print("Invalid date input, please select a valid date")
+        print('Invalid date input, please select a valid date')
 
 
 def is_valid_yes_or_no_input(gender_known: str) -> bool:
@@ -27,9 +27,11 @@ def is_valid_yes_or_no_input(gender_known: str) -> bool:
 
 
 def is_valid_insz_input(insz_input: str) -> bool:
+    err_message: str = 'Invalid insz input, please pick a valid insz number'
+
     if not insz_input.isnumeric() \
             or not len(insz_input) == 11:
-        print('Invalid insz input, please pick a valid insz number')
+        print(err_message)
         return False
 
     possible_pre_date: str = '{}/{}/19{}'.format(insz_input[4:6], insz_input[2:4], insz_input[0:2])
@@ -44,7 +46,8 @@ def is_valid_insz_input(insz_input: str) -> bool:
         return True
 
     else:
-        print('Invalid insz, please pick a valid insz number')
+        print(err_message)
+        return False
 
 
 def is_2000_date(insz_nr: str) -> bool:
@@ -65,7 +68,7 @@ def even_number_generator() -> str:
 def date_format_generator(date: str) -> str:
     split_date: list[str] = date.split("/")
 
-    return split_date[2][2:4] + '.' + split_date[1] + '.' + split_date[0]
+    return '{}{}{}'.format(split_date[2][2:4], split_date[1],  split_date[0])
 
 
 def check_number_generator(date: str, daily_serial: str) -> str:
@@ -196,7 +199,7 @@ def handle_insz_input() -> str:
 
         insz_input = input('Please enter a valid INSZ number without symbols/space between numbers > ')
 
-        if is_valid_insz_input(insz_input):
+        if is_valid_insz_input(insz_input) is True:
             break
 
         else:
