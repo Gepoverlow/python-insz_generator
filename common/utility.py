@@ -26,7 +26,7 @@ def is_valid_yes_or_no_input(gender_known: str) -> bool:
     return True if gender_known.lower() in ['y', 'n'] else print('Invalid input, please pick between y or n')
 
 
-def is_valid_insz_input(insz_input: str) -> bool:
+def is_valid_insz(insz_input: str) -> bool:
     err_message: str = 'Invalid insz input, please pick a valid insz number'
 
     if not insz_input.isnumeric() \
@@ -199,7 +199,7 @@ def handle_insz_input() -> str:
 
         insz_input: str = input('Please enter a valid INSZ number without symbols/space between numbers > ')
 
-        if is_valid_insz_input(insz_input) is True:
+        if is_valid_insz(insz_input) is True:
             break
 
         else:

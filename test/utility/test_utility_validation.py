@@ -61,14 +61,14 @@ class TestUtilityValidation(unittest.TestCase):
 
     def test_valid_insz(self):
         insz_input = '66041040332'
-        result: bool = util.is_valid_insz_input(insz_input)
+        result: bool = util.is_valid_insz(insz_input)
 
         self.assertTrue(result)
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_invalid_insz(self, mock_stdout):
         insz_input = '12121212312'
-        util.is_valid_insz_input(insz_input)
+        util.is_valid_insz(insz_input)
 
         self.assertEqual(mock_stdout.getvalue(), 'Invalid insz input, please pick a valid insz number\n')
 
