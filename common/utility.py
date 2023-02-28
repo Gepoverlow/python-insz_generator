@@ -98,7 +98,7 @@ def daily_serial_number_generator(gender: str) -> str:
         third_nr: str = even_number_generator()
 
     elif gender.lower() == 'u':
-        third_nr: str = str(randint(0, 8))
+        third_nr: str = str(randint(0, 9))
 
     return string_formatter(first_nr, second_nr, third_nr)
 
