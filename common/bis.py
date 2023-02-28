@@ -3,17 +3,17 @@ from common.utility import \
     check_number_generator, \
     date_format_generator,\
     date_refactorer_bis,\
-    handle_date_input,\
-    handle_amount_input,\
-    handle_is_gender_known_input,\
-    handle_is_dob_known_input
+    date_input_handler,\
+    amount_input_handler,\
+    is_gender_known_input_handler,\
+    is_dob_known_input_handler
 
 from faker import Faker
 
 fake = Faker()
 
 
-def handle_bis_generation(is_gender_known: bool, is_birthday_known: bool, date: str, amount: int) -> list[str]:
+def bis_generator(is_gender_known: bool, is_birthday_known: bool, date: str, amount: int) -> list[str]:
     generate_random_dates: bool = False
     bis_list: list[str] = list()
 
@@ -36,22 +36,25 @@ def handle_bis_generation(is_gender_known: bool, is_birthday_known: bool, date: 
     return bis_list
 
 
-def generate_bis():
+def bis_printer():
     while True:
         try:
-            is_gender_known: bool = handle_is_gender_known_input()
-            is_dob_known: bool = handle_is_dob_known_input()
-            date: str = handle_date_input()
-            amount: int = handle_amount_input()
+            is_gender_known: bool = is_gender_known_input_handler()
+            is_dob_known: bool = is_dob_known_input_handler()
+            date: str = date_input_handler()
+            amount: int = amount_input_handler()
 
-            bis_results: list[str] = handle_bis_generation(is_gender_known, is_dob_known, date, amount)
+            bis_results: list[str] = bis_generator(is_gender_known, is_dob_known, date, amount)
 
             for i in bis_results:
                 print(i)
             break
-        except:
-            print('Something went wrong')
-            break
+        except IndexError:
+            print('Something went wrong regarding an IndexError Exception')
+        except ValueError:
+            print('Something went wrong regarding an ValueError Exception')
+        except TypeError:
+            print('Something went wrong regarding an TypeError Exception')
 
 
 

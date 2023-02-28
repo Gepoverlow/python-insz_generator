@@ -2,19 +2,19 @@ from common.utility import \
     daily_serial_number_generator, \
     check_number_generator, \
     date_format_generator, \
-    handle_date_input, \
-    handle_amount_input, \
-    handle_insz_gender_input, \
-    handle_insz_input, \
-    is_2000_date, \
-    detect_insz_gender
+    date_input_handler, \
+    amount_input_handler, \
+    gender_input_handler, \
+    insz_input_handler, \
+    is_date_2000, \
+    insz_gender_detector
 
 from faker import Faker
 
 fake = Faker()
 
 
-def handle_insz_generation(date: str, amount: int, gender: str) -> list[str]:
+def insz_generator(date: str, amount: int, gender: str) -> list[str]:
     is_random_dates: bool = False
     insz_list: list[str] = list()
 
@@ -35,24 +35,27 @@ def handle_insz_generation(date: str, amount: int, gender: str) -> list[str]:
     return insz_list
 
 
-def generate_insz() -> None:
+def insz_printer() -> None:
     while True:
         try:
-            date: str = handle_date_input()
-            amount: int = handle_amount_input()
-            gender: str = handle_insz_gender_input()
+            date: str = date_input_handler()
+            amount: int = amount_input_handler()
+            gender: str = gender_input_handler()
 
-            insz_results: list[str] = handle_insz_generation(date, amount, gender)
+            insz_results: list[str] = insz_generator(date, amount, gender)
 
             for i in insz_results:
                 print(i)
             break
-        except:
-            print('Something went wrong')
-            break
+        except IndexError:
+            print('Something went wrong regarding an IndexError Exception')
+        except ValueError:
+            print('Something went wrong regarding an ValueError Exception')
+        except TypeError:
+            print('Something went wrong regarding an TypeError Exception')
 
 
-def handle_insz_decodification(insz_nr: str, is_post_2000_date: bool, gender: str) -> str:
+def insz_decoder(insz_nr: str, is_post_2000_date: bool, gender: str) -> str:
     birth_day: str = insz_nr[4:6]
     birth_month: str = insz_nr[2:4]
     birth_year: str = '20' + insz_nr[0:2] if is_post_2000_date else '19' + insz_nr[0:2]
@@ -63,16 +66,19 @@ def handle_insz_decodification(insz_nr: str, is_post_2000_date: bool, gender: st
                                                                             gender)
 
 
-def decode_insz() -> None:
+def insz_decode_printer() -> None:
     while True:
         try:
-            insz: str = handle_insz_input()
-            is_post_2000_date: bool = is_2000_date(insz)
-            gender: str = detect_insz_gender(insz)
+            insz: str = insz_input_handler()
+            is_post_2000_date: bool = is_date_2000(insz)
+            gender: str = insz_gender_detector(insz)
 
-            decode_result: str = handle_insz_decodification(insz, is_post_2000_date, gender)
+            decode_result: str = insz_decoder(insz, is_post_2000_date, gender)
             print(decode_result)
             break
-        except:
-            print('Something went wrong')
-            break
+        except IndexError:
+            print('Something went wrong regarding an IndexError Exception')
+        except ValueError:
+            print('Something went wrong regarding an ValueError Exception')
+        except TypeError:
+            print('Something went wrong regarding an TypeError Exception')
