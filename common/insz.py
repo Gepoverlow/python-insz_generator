@@ -9,12 +9,14 @@ from common.utility import \
     is_date_2000, \
     insz_gender_detector
 
+from typing import List
+
 from faker import Faker
 
 fake = Faker()
 
 
-def insz_generator(date: str, amount: int, gender: str) -> list[str]:
+def insz_generator(date: str, amount: int, gender: str) -> List[str]:
     is_random_dates: bool = False
     insz_list: list[str] = list()
 
