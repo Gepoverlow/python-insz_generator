@@ -1,17 +1,22 @@
 import hug
+from faker import Faker
+from api.validation import custom_types as t
 from common.insz import insz_generator
+from common import utility as u
+
+fake = Faker()
 
 
 @hug.get()
-def generate_insz(date: hug.types.text = None, amount: hug.types.number = None, gender: hug.types.text = None):
+def generate_insz(date: t.date_type = None, amount: t.amount_type = None, gender: t.gender_type = None):
     if date is None:
-        date = '12/12/2017'
+        date: str = u.fake_date_generator()
 
     if amount is None:
-        amount = 1
+        amount: int = 1
 
     if gender is None:
-        gender = 'u'
+        gender: str = 'u'
 
     insz_list: list[str] = insz_generator(date, amount, gender)
 
