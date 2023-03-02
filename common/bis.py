@@ -6,7 +6,8 @@ from common.utility import \
     date_input_handler,\
     amount_input_handler,\
     is_gender_known_input_handler,\
-    is_dob_known_input_handler
+    is_dob_known_input_handler, \
+    fake_date_generator
 
 from faker import Faker
 
@@ -22,8 +23,7 @@ def bis_generator(is_gender_known: bool, is_birthday_known: bool, date: str, amo
 
     for i in range(amount):
         if generate_random_dates is True:
-            split_random_date: list[str] = str(fake.date()).split('-')
-            date: str = '{}/{}/{}'.format(split_random_date[2], split_random_date[1], split_random_date[0])
+            date: str = fake_date_generator()
 
         correct_date: str = date_refactorer_bis(date, is_gender_known, is_birthday_known)
 

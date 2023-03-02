@@ -1,6 +1,9 @@
 import datetime
 import random
 from random import randint
+from faker import Faker
+
+fake = Faker()
 
 
 def is_gender_valid(gender: str) -> bool:
@@ -12,7 +15,7 @@ def is_amount_valid(amount: str) -> bool:
 
 
 def is_date_valid(date: str) -> bool:
-    date_format: str = '%d/%m/%Y'
+    date_format: str = '%d-%m-%Y'
 
     try:
         datetime.datetime.strptime(date, date_format)
@@ -34,8 +37,8 @@ def is_insz_valid(insz: str) -> bool:
         print(err_message)
         return False
 
-    possible_pre_date: str = f'{insz[4:6]}/{insz[2:4]}/19{insz[0:2]}'
-    possible_post_date: str = f'{insz[4:6]}/{insz[2:4]}/20{insz[0:2]}'
+    possible_pre_date: str = f'{insz[4:6]}-{insz[2:4]}-19{insz[0:2]}'
+    possible_post_date: str = f'{insz[4:6]}-{insz[2:4]}-20{insz[0:2]}'
 
     input_check_number: int = int(insz[9:11])
     pre_2000_result: int = 97 - (int(insz[0:9]) % 97)
@@ -66,13 +69,13 @@ def even_number_generator() -> str:
 
 
 def date_format_generator(date: str) -> str:
-    split_date: list[str] = date.split("/")
+    split_date: list[str] = date.split("-")
 
     return f'{split_date[2][2:4]}{split_date[1]}{split_date[0]}'
 
 
 def check_number_generator(date: str, daily_serial: str) -> str:
-    date_split: list[str] = date.split('/')
+    date_split: list[str] = date.split('-')
     year: int = int(date_split[2])
 
     modulo_dividend: str = date_split[2][2:4] + date_split[1] + date_split[0] + daily_serial
@@ -214,7 +217,7 @@ def insz_input_handler() -> str:
 
 
 def date_refactorer_bis(date: str, is_gender_known: bool, is_birthday_known: bool) -> str:
-    split_date: list[str] = date.split("/")
+    split_date: list[str] = date.split("-")
 
     day: str = split_date[0]
     month: str = split_date[1]
@@ -245,7 +248,14 @@ def string_formatter(a: str, b: str, c: str):
 
 
 def date_string_formatter(a: str, b: str or int, c: str):
-    return f'{a}/{b}/{c}'
+    return f'{a}-{b}-{c}'
+
+
+def fake_date_generator() -> str:
+    fake_date: str = str(fake.date())
+    fake_date_split: list[str] = fake_date.split('-')
+    return f'{fake_date_split[2]}-{fake_date_split[1]}-{fake_date_split[0]}'
+
 
 
 def print_options() -> None:

@@ -7,7 +7,8 @@ from common.utility import \
     gender_input_handler, \
     insz_input_handler, \
     is_date_2000, \
-    insz_gender_detector
+    insz_gender_detector, \
+    fake_date_generator
 
 from typing import List
 
@@ -25,8 +26,7 @@ def insz_generator(date: str, amount: int, gender: str) -> List[str]:
 
     for i in range(amount):
         if is_random_dates is True:
-            split_random_date: list[str] = str(fake.date()).split('-')
-            date: str = '{}/{}/{}'.format(split_random_date[2], split_random_date[1], split_random_date[0])
+            date: str = fake_date_generator()
 
         formatted_date: str = date_format_generator(date)
         daily_serial: str = daily_serial_number_generator(gender)
@@ -62,7 +62,7 @@ def insz_decoder(insz_nr: str, is_post_2000_date: bool, gender: str) -> str:
     birth_month: str = insz_nr[2:4]
     birth_year: str = '20' + insz_nr[0:2] if is_post_2000_date else '19' + insz_nr[0:2]
 
-    return 'This persons birth day is {}/{}/{} and the gender is {}'.format(birth_day,
+    return 'This persons birth day is {}-{}-{} and the gender is {}'.format(birth_day,
                                                                             birth_month,
                                                                             birth_year,
                                                                             gender)
