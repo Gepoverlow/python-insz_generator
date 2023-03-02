@@ -9,13 +9,13 @@ class TestUtilityHandling(unittest.TestCase):
     def test_empty_date_input_handling(self, input):
         self.assertEqual(util.date_input_handler(), None)
 
-    @patch('builtins.input', return_value='12/12/2007')
+    @patch('builtins.input', return_value='12-12-2007')
     def test_valid_date_input_handling(self, input):
-        self.assertEqual(util.date_input_handler(), '12/12/2007')
+        self.assertEqual(util.date_input_handler(), '12-12-2007')
 
-    @patch('builtins.input', side_effect=['32/12/2007', 'aaaaa', '12a12a1212', '12/12/2007'])
+    @patch('builtins.input', side_effect=['32-12-2007', 'aaaaa', '12a12a1212', '12-12-2007'])
     def test_invalid_date_input_handling(self, input):
-        self.assertEqual(util.date_input_handler(), '12/12/2007')
+        self.assertEqual(util.date_input_handler(), '12-12-2007')
 
     @patch('builtins.input', return_value='')
     def test_empty_amount_input_handling(self, input):
@@ -53,7 +53,7 @@ class TestUtilityHandling(unittest.TestCase):
     def test_valid_unisex_gender_input_handling(self, input):
         self.assertEqual(util.gender_input_handler(), 'u')
 
-    @patch('builtins.input', side_effect=['x', '123', '12/12/2012', 'w'])
+    @patch('builtins.input', side_effect=['x', '123', '12-12-2012', 'w'])
     def test_invalid_gender_input_handling(self, input):
         self.assertEqual(util.gender_input_handler(), 'w')
 
@@ -69,7 +69,7 @@ class TestUtilityHandling(unittest.TestCase):
     def test_valid_no_gender_known_input_handling(self, input):
         self.assertEqual(util.is_gender_known_input_handler(), False)
 
-    @patch('builtins.input', side_effect=['x', '123', '12/12/2012', 'n'])
+    @patch('builtins.input', side_effect=['x', '123', '12-12-2012', 'n'])
     def test_invalid_gender_known_input_handling(self, input):
         self.assertEqual(util.is_gender_known_input_handler(), False)
 
@@ -85,7 +85,7 @@ class TestUtilityHandling(unittest.TestCase):
     def test_valid_no_dob_known_input_handling(self, input):
         self.assertEqual(util.is_dob_known_input_handler(), False)
 
-    @patch('builtins.input', side_effect=['x', '123', '12/12/2012', 'n'])
+    @patch('builtins.input', side_effect=['x', '123', '12-12-2012', 'n'])
     def test_invalid_dob_known_input_handling(self, input):
         self.assertEqual(util.is_dob_known_input_handler(), False)
 

@@ -8,14 +8,14 @@ from common import utility as util, insz as i
 class TestUtilityValidation(unittest.TestCase):
 
     def test_valid_date_input(self):
-        date_input: str = '12/12/2012'
+        date_input: str = '12-12-2012'
         result: bool = util.is_date_valid(date_input)
 
         self.assertTrue(result)
 
     @patch('sys.stdout', new_callable=io.StringIO)
     def test_invalid_date_input(self, mock_stdout):
-        date_input: str = '32/13/2012'
+        date_input: str = '32-13-2012'
         util.is_date_valid(date_input)
 
         self.assertEqual(mock_stdout.getvalue(), 'Invalid date input, please select a valid date\n')
@@ -73,14 +73,14 @@ class TestUtilityValidation(unittest.TestCase):
         self.assertEqual(mock_stdout.getvalue(), 'Invalid insz input, please pick a valid insz number\n')
 
     def test_is_2000_date_true(self):
-        post_2000_date: str = '12/07/2050'
+        post_2000_date: str = '12-07-2050'
         post_2000_insz: list[str] = i.insz_generator(post_2000_date, 1, 'u')
 
         result: bool = util.is_date_2000(post_2000_insz[0])
         self.assertTrue(result)
 
     def test_is_2000_date_false(self):
-        pre_2000_date: str = '12/07/1950'
+        pre_2000_date: str = '12-07-1950'
         pre_2000_insz: list[str] = i.insz_generator(pre_2000_date, 1, 'u')
 
         result: bool = util.is_date_2000(pre_2000_insz[0])

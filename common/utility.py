@@ -103,7 +103,7 @@ def daily_serial_number_generator(gender: str) -> str:
     elif gender.lower() == 'u':
         third_nr: str = str(randint(0, 9))
 
-    return string_formatter(first_nr, second_nr, third_nr)
+    return f'{first_nr}{second_nr}{third_nr}'
 
 
 def amount_input_handler() -> int:
@@ -243,19 +243,14 @@ def insz_gender_detector(insz_nr: str) -> str:
     return 'Female' if int(daily_serial_number[2]) % 2 == 0 else 'Male'
 
 
-def string_formatter(a: str, b: str, c: str):
-    return f'{a}{b}{c}'
-
-
-def date_string_formatter(a: str, b: str or int, c: str):
-    return f'{a}-{b}-{c}'
+def date_string_formatter(day: str, month: str or int, year: str):
+    return f'{day}-{month}-{year}'
 
 
 def fake_date_generator() -> str:
     fake_date: str = str(fake.date())
     fake_date_split: list[str] = fake_date.split('-')
     return f'{fake_date_split[2]}-{fake_date_split[1]}-{fake_date_split[0]}'
-
 
 
 def print_options() -> None:

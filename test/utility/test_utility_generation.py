@@ -15,13 +15,13 @@ class TestUtilityGeneration(unittest.TestCase):
         self.assertEqual(int(result) % 2, 0)
 
     def test_date_format_generator(self):
-        result: str = util.date_format_generator('21/02/1989')
+        result: str = util.date_format_generator('21-02-1989')
 
         self.assertEqual(result, '890221')
 
     def test_check_number_generator_pre_2000(self):
-        pre_2000_date: str = '21/02/1970'
-        post_2000_date: str = '21/02/2070'
+        pre_2000_date: str = '21-02-1970'
+        post_2000_date: str = '21-02-2070'
         daily_serial: str = '717'
 
         pre_2000_date_result: str = util.check_number_generator(pre_2000_date, daily_serial)
@@ -31,8 +31,8 @@ class TestUtilityGeneration(unittest.TestCase):
         self.assertEqual(pre_2000_date_result, '40')
 
     def test_check_number_generator_2000(self):
-        pre_2000_date: str = '21/02/1900'
-        post_2000_date: str = '21/02/2000'
+        pre_2000_date: str = '21-02-1900'
+        post_2000_date: str = '21-02-2000'
         daily_serial: str = '717'
 
         pre_2000_date_result: str = util.check_number_generator(pre_2000_date, daily_serial)
@@ -42,8 +42,8 @@ class TestUtilityGeneration(unittest.TestCase):
         self.assertEqual(post_2000_date_result, '54')
 
     def test_check_number_generator_post_2000(self):
-        pre_2000_date: str = '21/02/1970'
-        post_2000_date: str = '21/02/2070'
+        pre_2000_date: str = '21-02-1970'
+        post_2000_date: str = '21-02-2070'
         daily_serial: str = '717'
 
         pre_2000_date_result: str = util.check_number_generator(pre_2000_date, daily_serial)
@@ -74,6 +74,14 @@ class TestUtilityGeneration(unittest.TestCase):
 
         self.assertTrue(result.isnumeric())
         self.assertEqual(len(result), 3)
+
+    def test_date_string_formatter(self):
+        result: str = util.date_string_formatter('12', '12', '2017')
+        self.assertEqual(result, '12-12-2017')
+
+    def test_fake_date_generator(self):
+        result: str = util.fake_date_generator()
+        self.assertTrue(util.is_date_valid(result))
 
 
 if __name__ == "__main__":

@@ -31,7 +31,7 @@ def bis_generator(is_gender_known: bool, is_birthday_known: bool, date: str, amo
         daily_serial: str = daily_serial_number_generator('U')
         check_number: str = check_number_generator(correct_date, daily_serial)
 
-        bis_list.append('{}{}{}'.format(formatted_date, daily_serial, check_number))
+        bis_list.append(f'{formatted_date}{daily_serial}{check_number}')
 
     return bis_list
 
